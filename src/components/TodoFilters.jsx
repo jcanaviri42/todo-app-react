@@ -1,4 +1,6 @@
-export default function TodoFilters({ todosFiltered, filter, setFilter }) {
+import PropTypes from 'prop-types'
+
+function TodoFilters({ todosFiltered, filter, setFilter }) {
   const handleClickButton = (name) => {
     setFilter(name)
     todosFiltered(name)
@@ -33,3 +35,11 @@ export default function TodoFilters({ todosFiltered, filter, setFilter }) {
     </div>
   )
 }
+
+TodoFilters.propTypes = {
+  todosFiltered: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired
+}
+
+export default TodoFilters

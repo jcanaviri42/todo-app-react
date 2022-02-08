@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types'
+
 import TodoClearComplete from './TodoClearComplete'
 import TodoCompleteAllTodos from './TodoCompleteAllTodos'
 import TodoFilters from './TodoFilters'
 import TodoItemsRemaining from './TodoItemsRemaining'
 
-export default function TodoFooter({
+function TodoFooter({
   remaining,
   completeAllTodos,
   clearComplete,
@@ -30,3 +32,14 @@ export default function TodoFooter({
     </>
   )
 }
+
+TodoFooter.propTypes = {
+  remaining: PropTypes.func.isRequired,
+  completeAllTodos: PropTypes.func.isRequired,
+  clearComplete: PropTypes.func.isRequired,
+  todosFiltered: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired
+}
+
+export default TodoFooter

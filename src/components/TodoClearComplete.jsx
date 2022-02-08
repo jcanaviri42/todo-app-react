@@ -1,4 +1,6 @@
-export default function TodoClearComplete({ clearComplete }) {
+import PropTypes from 'prop-types'
+
+function TodoClearComplete({ clearComplete }) {
   return (
     <div>
       <button className="button button-scale" onClick={clearComplete}>
@@ -7,3 +9,9 @@ export default function TodoClearComplete({ clearComplete }) {
     </div>
   )
 }
+
+TodoClearComplete.propTypes = {
+  clearComplete: PropTypes.func.isRequired
+}
+
+export default TodoClearComplete

@@ -1,4 +1,6 @@
-export default function TodoCompleteAllTodos({ completeAllTodos }) {
+import PropTypes from 'prop-types'
+
+function TodoCompleteAllTodos({ completeAllTodos }) {
   return (
     <div>
       <div className="button button-scale" onClick={completeAllTodos}>
@@ -7,3 +9,9 @@ export default function TodoCompleteAllTodos({ completeAllTodos }) {
     </div>
   )
 }
+
+TodoCompleteAllTodos.propTypes = {
+  completeAllTodos: PropTypes.func.isRequired
+}
+
+export default TodoCompleteAllTodos

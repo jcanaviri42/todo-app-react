@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
-export default function TodoForm({ addTodo }) {
+function TodoForm({ addTodo }) {
   const [todoInput, setTodoInput] = useState('')
 
   const handleInput = (event) => {
@@ -29,3 +30,9 @@ export default function TodoForm({ addTodo }) {
     </form>
   )
 }
+
+TodoForm.propTypes ={
+  addTodo: PropTypes.func.isRequired
+}
+
+export default TodoForm

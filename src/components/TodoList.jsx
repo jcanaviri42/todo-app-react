@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export default function TodoList({
+function TodoList({
   todosFiltered,
   filter,
   completeTodo,
@@ -63,3 +64,15 @@ export default function TodoList({
     </>
   )
 }
+
+TodoList.propTypes = {
+  todosFiltered: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+  completeTodo: PropTypes.func.isRequired,
+  markAsEditing: PropTypes.func.isRequired,
+  updateTodo: PropTypes.func.isRequired,
+  handleKeyDown: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+}
+
+export default TodoList
