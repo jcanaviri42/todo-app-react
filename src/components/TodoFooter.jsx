@@ -34,7 +34,7 @@ function TodoFooter({
 }
 
 TodoFooter.propTypes = {
-  remaining: PropTypes.func.isRequired,
+  remaining: PropTypes.number.isRequired,
   completeAllTodos: PropTypes.func.isRequired,
   clearComplete: PropTypes.func.isRequired,
   todosFiltered: PropTypes.func.isRequired,

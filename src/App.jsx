@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
@@ -6,6 +6,8 @@ import NoTodos from './components/NoTodos'
 import TodoFooter from './components/TodoFooter'
 
 export default function App() {
+  const [name, setName] = useState('')
+  const nameInputEl = useRef(null)
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -75,7 +77,7 @@ export default function App() {
     setTodos(updatedTodos)
   }
 
-  const cancelEdit = (event, todoId) => {
+  const cancelEdit = (todoId) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === todoId) todo.isEditing = false
       return todo
@@ -86,10 +88,15 @@ export default function App() {
 
   const handleKeyDown = (event, todoId) => {
     if (event.key === 'Enter') updateTodo(event, todoId)
-    if (event.key === 'Escape') cancelEdit(event, todoId)
+    if (event.key === 'Escape') cancelEdit(todoId)
   }
 
-  const remaining = () => todos.filter((todo) => !todo.isComplete).length
+  const remainingCalculation = () =>  {
+    // console.log('calculating remaining todos. This is slow.');
+    // for (let index = 0; index < 2000000000; index++) {}
+    return todos.filter((todo) => !todo.isComplete).length
+  }
+  const remaining = useMemo(remainingCalculation, [todos])
 
   const completeAllTodos = () => {
     const updatedTodos = todos.map((todo) => {
