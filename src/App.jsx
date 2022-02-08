@@ -92,7 +92,7 @@ export default function App() {
   }
 
   const remainingCalculation = () =>  {
-    // console.log('calculating remaining todos. This is slow.');
+    // console.log('calculating remaining todos. This is slow.')
     // for (let index = 0; index < 2000000000; index++) {}
     return todos.filter((todo) => !todo.isComplete).length
   }
@@ -116,9 +116,29 @@ export default function App() {
     if (filter === 'completed') return todos.filter((todo) => todo.isComplete)
   }
 
+  // Set the focus when page load the first time
+  useEffect(() => {
+    nameInputEl.current.focus()
+  }, [])
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
+
+        <div className="name-container">
+          <h2>What is your name?</h2>
+          <form>
+            <input 
+              type="text"
+              ref={nameInputEl}
+              className="todo-input"
+              placeholder="What's your name?"
+              value={name}
+              onChange={(e) => setName(e.target.value)} />
+          </form>
+          {name && <p className="name-label">Hello, {name}!</p> }
+        </div>
+
         <h2>Todo App</h2>
         <TodoForm addTodo={addTodo} />
         {todos.length > 0 ? (
