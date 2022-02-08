@@ -70,10 +70,6 @@ input[type='checkbox']:focus {
   background-color: #aaa;
 }
 
-.todo-app-container {
-  min-height: 100vh;
-}
-
 .todo-app {
   margin: auto;
   margin-top: 30px;
@@ -96,11 +92,12 @@ input[type='checkbox']:focus {
 }
 .todo-input:focus {
   outline-color: #6b7280;
-  outline-style: dashed;
   outline-width: 0.1rem;
 }
 .todo-list {
   margin-top: 32px;
+  max-height: 280px;
+  overflow: scroll;
 }
 
 .todo-item-container {
@@ -115,6 +112,7 @@ input[type='checkbox']:focus {
   flex: 1;
   font-size: 18px;
   margin-right: 24px;
+  margin-left: 24px;
 }
 
 .todo-item-label {
@@ -202,6 +200,7 @@ input[type='checkbox']:focus {
 .no-todos-container {
   width: 300px;
   margin: 30px auto;
+  text-align: center;
 }
 
 .no-todos-container p {
