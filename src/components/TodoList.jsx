@@ -1,7 +1,8 @@
 import React from 'react'
 
 export default function TodoList({
-  todos,
+  todosFiltered,
+  filter,
   completeTodo,
   markAsEditing,
   updateTodo,
@@ -11,7 +12,7 @@ export default function TodoList({
   return (
     <>
       <ul className="todo-list">
-        {todos.map((todo) => (
+        {todosFiltered(filter).map((todo) => (
           <li key={todo.id} className="todo-item-container">
             <div className="todo-item">
               <input

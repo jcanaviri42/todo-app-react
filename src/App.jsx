@@ -26,6 +26,7 @@ export default function App() {
       isEditing: false,
     },
   ])
+  const [filter, setFilter] = useState('all')
 
   const addTodo = (todoText) => {
     let newId = todos.length ? todos[todos.length - 1].id + 1 : 1
@@ -88,23 +89,50 @@ export default function App() {
     if (event.key === 'Escape') cancelEdit(event, todoId)
   }
 
+  const remaining = () => todos.filter((todo) => !todo.isComplete).length
+
+  const completeAllTodos = () => {
+    const updatedTodos = todos.map((todo) => {
+      todo.isComplete = true
+      return todo
+    })
+
+    setTodos(updatedTodos)
+  }
+
+  const clearComplete = () =>
+    setTodos([...todos].filter((todo) => !todo.isComplete))
+
+  const todosFiltered = (filter) => {
+    if (filter === 'all') return todos
+    if (filter === 'active') return todos.filter((todo) => !todo.isComplete)
+    if (filter === 'completed') return todos.filter((todo) => todo.isComplete)
+  }
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
         <h2>Todo App</h2>
         <TodoForm addTodo={addTodo} />
-
         {todos.length > 0 ? (
           <>
             <TodoList
-              todos={todos}
+              todosFiltered={todosFiltered}
+              filter={filter}
               completeTodo={completeTodo}
               markAsEditing={markAsEditing}
               updateTodo={updateTodo}
               handleKeyDown={handleKeyDown}
               deleteTodo={deleteTodo}
             />
-            <TodoFooter />
+            <TodoFooter
+              remaining={remaining}
+              completeAllTodos={completeAllTodos}
+              todosFiltered={todosFiltered}
+              clearComplete={clearComplete}
+              filter={filter}
+              setFilter={setFilter}
+            />
           </>
         ) : (
           <NoTodos />

@@ -1,23 +1,31 @@
-export default function TodoFooter() {
+import TodoClearComplete from './TodoClearComplete'
+import TodoCompleteAllTodos from './TodoCompleteAllTodos'
+import TodoFilters from './TodoFilters'
+import TodoItemsRemaining from './TodoItemsRemaining'
+
+export default function TodoFooter({
+  remaining,
+  completeAllTodos,
+  clearComplete,
+  todosFiltered,
+  filter,
+  setFilter
+}) {
+  
+
   return (
     <>
       <div className="check-all-container">
-        <div>
-          <div className="button button-scale">Check All</div>
-        </div>
-        <span>3 items remaining</span>
+        <TodoCompleteAllTodos completeAllTodos={completeAllTodos} />
+        <TodoItemsRemaining remaining={remaining} />
       </div>
       <div className="other-buttons-container">
-        <div>
-          <button className="button filter-button filter-button-active">
-            All
-          </button>
-          <button className="button filter-button">Active</button>
-          <button className="button filter-button">Completed</button>
-        </div>
-        <div>
-          <button className="button button-scale">Clear completed</button>
-        </div>
+        <TodoFilters
+          todosFiltered={todosFiltered}
+          filter={filter}
+          setFilter={setFilter}
+        />
+        <TodoClearComplete clearComplete={clearComplete} />
       </div>
     </>
   )
