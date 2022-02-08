@@ -24,6 +24,7 @@ export default function App() {
   return (
     <div className="todo-app-container">
       <div className="todo-app">
+        <h2>Todo App</h2>
         <form>
           <input
             type="text"
@@ -34,7 +35,7 @@ export default function App() {
 
         <ul className="todo-list">
           {todos.map((todo, index) => (
-            <li key={index} className="todo-item-container">
+            <li key={todo.id} className="todo-item-container">
               <div className="todo-item">
                 <input type="checkbox" />
                 <span className="todo-item-label">{todo.title}</span>
