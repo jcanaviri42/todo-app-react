@@ -23,7 +23,31 @@ export default class AppClass extends Component {
           isComplete: false,
         },
       ],
+      todoInput: ''
     }
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (this.state.todoInput === '') return
+
+    let newId = this.state.todos[this.state.todos.length - 1].id + 1
+    let newTodo = {id: newId, title: this.state.todoInput, isComplete: false}
+    this.setState({
+      todos: [...this.state.todos, newTodo],
+      todoInput: ''
+    })
+  }
+  
+  deleteTodo = (todoId) => {
+    this.setState({
+      todos: this.state.todos.filter(todo => todo.id !== todoId)
+    })
+  }
+
+  handleChangeInput = (e) => {
+    this.setState({ todoInput: e.target.value })
   }
 
   render() {
@@ -31,11 +55,13 @@ export default class AppClass extends Component {
       <div className="todo-app-container">
         <div className="todo-app">
           <h2>Todo App</h2>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <input
               type="text"
               className="todo-input"
               placeholder="What do you need to do?"
+              value={this.state.todoInput}
+              onChange={this.handleChangeInput}
             />
           </form>
 
@@ -47,7 +73,7 @@ export default class AppClass extends Component {
                   <span className="todo-item-label">{todo.title}</span>
                 </div>
 
-                <button className="x-button">
+                <button className="x-button" onClick={() => this.deleteTodo(todo.id)}>
                   <svg
                     className="x-button-icon"
                     fill="none"

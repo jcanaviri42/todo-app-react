@@ -3,6 +3,8 @@ import { useState } from 'react'
 import './App.css'
 
 export default function App() {
+  const [todoInput, setTodoInput] = useState('')
+
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -21,15 +23,36 @@ export default function App() {
     },
   ])
 
+  const addTodo = (e) => {
+    e.preventDefault()
+
+    // If the input text is empty
+    if (todoInput.trim().length === 0) return
+
+    let newId = todos.length ? todos[todos.length - 1].id + 1 : 1
+    setTodos([...todos, { id: newId, title: todoInput, isComplete: false }])
+    setTodoInput('')
+  }
+
+  const deleteTodo = (todoId) => {
+    setTodos(todos.filter(todo => todo.id !== todoId))
+  }
+
+  const handleInput = (e) => {
+    setTodoInput(e.target.value)
+  }
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
         <h2>Todo App</h2>
-        <form>
+        <form onSubmit={addTodo}>
           <input
             type="text"
             className="todo-input"
             placeholder="What do you need to do?"
+            value={todoInput}
+            onChange={handleInput}
           />
         </form>
 
@@ -41,7 +64,7 @@ export default function App() {
                 <span className="todo-item-label">{todo.title}</span>
               </div>
 
-              <button className="x-button">
+              <button className="x-button" onClick={() => deleteTodo(todo.id)}>
                 <svg
                   className="x-button-icon"
                   fill="none"
