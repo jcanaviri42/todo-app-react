@@ -10,21 +10,24 @@ export default function App() {
       id: 1,
       title: 'Finish React Series',
       isComplete: false,
+      isEditing: false,
     },
     {
       id: 2,
       title: 'Go Grocery',
       isComplete: true,
+      isEditing: false,
     },
     {
       id: 3,
       title: 'Take over world',
       isComplete: false,
+      isEditing: false,
     },
   ])
 
-  const addTodo = (e) => {
-    e.preventDefault()
+  const addTodo = (event) => {
+    event.preventDefault()
 
     // If the input text is empty
     if (todoInput.trim().length === 0) return
@@ -35,13 +38,62 @@ export default function App() {
   }
 
   const deleteTodo = (todoId) => {
-    setTodos(todos.filter(todo => todo.id !== todoId))
+    setTodos(todos.filter((todo) => todo.id !== todoId))
   }
 
-  const handleInput = (e) => {
-    setTodoInput(e.target.value)
+  const handleInput = (event) => {
+    setTodoInput(event.target.value)
   }
 
+  const completeTodo = (todoId) => {
+    const updatedTodos = todos.map(todo => {
+      if (todo.id === todoId) todo.isComplete = !todo.isComplete
+      return todo
+    })
+
+    setTodos(updatedTodos)
+  }
+
+  const markAsEditing = (todoId) => {
+    const updatedTodos = todos.map(todo => {
+      if (todo.id === todoId) todo.isEditing = true
+      return todo
+    })
+    setTodos(updatedTodos)
+  }
+
+  const updateTodo = (event, todoId) => {
+    const updatedTodos = todos.map(todo => {
+      if (todo.id === todoId) {
+        // if the user deletes all the content
+        if (event.target.value.trim().length === 0) {
+          todo.isEditing = false
+          return todo
+        }
+
+        todo.title = event.target.value
+        todo.isEditing = false
+      }
+      return todo
+    })
+
+    setTodos(updatedTodos)
+  }
+
+  const cancelEdit = (event, todoId) => {
+    const updatedTodos = todos.map(todo => {
+      if (todo.id === todoId) todo.isEditing = false
+      return todo
+    })
+
+    setTodos(updatedTodos)
+  }
+
+  const handleKeyDown = (event, todoId) => {
+    if (event.key === 'Enter') updateTodo(event, todoId)
+    if (event.key === 'Escape') cancelEdit(event, todoId)
+  }
+  
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -60,8 +112,28 @@ export default function App() {
           {todos.map((todo, index) => (
             <li key={todo.id} className="todo-item-container">
               <div className="todo-item">
-                <input type="checkbox" />
-                <span className="todo-item-label">{todo.title}</span>
+                <input
+                  type="checkbox"
+                  onChange={() => completeTodo(todo.id)}
+                  checked={todo.isComplete ? true : false}
+                />
+
+                {!todo.isEditing ? (
+                  <span
+                    onDoubleClick={() => markAsEditing(todo.id)}
+                    className={`todo-item-label ${todo.isComplete ? 'line-through' : ''}`}>
+                      {todo.title}
+                  </span>
+                ) : (
+                  <input 
+                    type="text"
+                    className='todo-item-input'
+                    defaultValue={todo.title}
+                    autoFocus
+                    onBlur={(event) => updateTodo(event, todo.id)}
+                    onKeyDown={(event) => handleKeyDown(event, todo.id)} />
+                )}
+
               </div>
 
               <button className="x-button" onClick={() => deleteTodo(todo.id)}>
