@@ -47,9 +47,9 @@ input[type='checkbox']::before {
 input[type='checkbox']:checked::before {
   transform: scale(1);
 }
-input[type="checkbox"]:focus {
-  outline: .1rem solid #6b7280;
-  outline-offset: .15rem;
+input[type='checkbox']:focus {
+  outline: 0.1rem solid #6b7280;
+  outline-offset: 0.15rem;
   outline-style: dashed;
 }
 
@@ -92,7 +92,7 @@ input[type="checkbox"]:focus {
   padding: 14px;
   font-size: 16px;
   margin-top: 16px;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 .todo-input:focus {
   outline-color: #6b7280;
@@ -132,6 +132,7 @@ input[type="checkbox"]:focus {
 
 .line-through {
   text-decoration: line-through;
+  color: #6b7280;
 }
 
 .x-button {
@@ -145,7 +146,7 @@ input[type="checkbox"]:focus {
   color: #1f2937;
 }
 .x-button:active {
-  transform: scale(.90);
+  transform: scale(0.9);
 }
 
 .x-button-icon {
@@ -167,7 +168,7 @@ input[type="checkbox"]:focus {
   border: 1px solid lightgray;
 }
 .button-scale:active {
-  transform: scale(.95);
+  transform: scale(0.95);
 }
 
 .filter-button {
