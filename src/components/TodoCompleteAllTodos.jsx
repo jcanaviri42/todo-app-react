@@ -1,6 +1,14 @@
-import PropTypes from 'prop-types'
+import { useContext } from 'react'
+import { TodosContext } from '../context/TodoContext'
 
-function TodoCompleteAllTodos({ completeAllTodos }) {
+function TodoCompleteAllTodos() {
+  const {todos, setTodos} = useContext(TodosContext)
+
+  const completeAllTodos = () => {
+    const updatedTodos = todos.map(todo => todo.isComplete = true)
+    setTodos(updatedTodos)
+  }
+
   return (
     <div>
       <div className="button button-scale" onClick={completeAllTodos}>
@@ -8,10 +16,6 @@ function TodoCompleteAllTodos({ completeAllTodos }) {
       </div>
     </div>
   )
-}
-
-TodoCompleteAllTodos.propTypes = {
-  completeAllTodos: PropTypes.func.isRequired
 }
 
 export default TodoCompleteAllTodos

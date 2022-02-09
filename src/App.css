@@ -166,7 +166,7 @@ input[type='checkbox']:focus {
   border: 1px solid lightgray;
 }
 .button-scale:active {
-  transform: scale(0.95);
+  transform: scale(0.90);
 }
 
 .filter-button {

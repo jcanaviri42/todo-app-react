@@ -1,14 +1,66 @@
-import PropTypes from 'prop-types'
+import { useContext } from 'react'
 
-function TodoList({
-  todosFiltered,
-  filter,
-  completeTodo,
-  markAsEditing,
-  updateTodo,
-  handleKeyDown,
-  deleteTodo,
-}) {
+import { TodosContext } from '../context/TodoContext'
+
+function TodoList() {
+  const { todos, setTodos, todosFiltered, filter } = useContext(TodosContext)
+
+  const completeTodo = (todoId) => {
+    const updatedtodos = todos.map((todo) => {
+      if (todo.id === todoId) {
+        todo.isComplete = !todo.isComplete
+      }
+      return todo
+    })
+
+    setTodos(updatedtodos)
+  }
+
+  const markAsEditing = (todoId) => {
+    const updatedtodos = todos.map((todo) => {
+      if (todo.id === todoId) {
+        todo.isEditing = true
+      }
+      return todo
+    })
+
+    setTodos(updatedtodos)
+  }
+
+  const updateTodo = (event, todoId) => {
+    const updatedTodos = todos.map(todo => {
+      if (todo.id === todoId) {
+        if (event.target.value.trim().length === 0) {
+          todo.isEditing = false
+          return
+        }
+        todo.title = event.target.value
+        todo.isEditing = false
+      }
+      return todo
+    })
+
+    setTodos(updatedTodos)
+  }
+
+  const cancelEdit = (todoId) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === todoId) todo.isEditing = false
+      return todo
+    })
+
+    setTodos(updatedTodos)
+  }
+
+  const handleKeyDown = (event, todoId) => {
+    if (event.key === 'Enter') updateTodo(event, todoId)
+    if (event.key === 'Escape') cancelEdit(todoId)
+  }
+
+  const deleteTodo = (todoId) => {
+    setTodos(todos.filter(todo => todo.id !== todoId))
+  }
+
   return (
     <ul className="todo-list">
       {todosFiltered(filter).map((todo) => (
@@ -60,16 +112,6 @@ function TodoList({
       ))}
     </ul>
   )
-}
-
-TodoList.propTypes = {
-  todosFiltered: PropTypes.func.isRequired,
-  filter: PropTypes.string.isRequired,
-  completeTodo: PropTypes.func.isRequired,
-  markAsEditing: PropTypes.func.isRequired,
-  updateTodo: PropTypes.func.isRequired,
-  handleKeyDown: PropTypes.func.isRequired,
-  deleteTodo: PropTypes.func.isRequired,
 }
 
 export default TodoList

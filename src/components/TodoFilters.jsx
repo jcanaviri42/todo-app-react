@@ -1,6 +1,9 @@
-import PropTypes from 'prop-types'
+import { useContext } from 'react'
+import { TodosContext } from '../context/TodoContext'
 
-function TodoFilters({ todosFiltered, filter, setFilter }) {
+function TodoFilters() {
+  const { todosFiltered, filter, setFilter } = useContext(TodosContext)
+
   const handleClickButton = (name) => {
     setFilter(name)
     todosFiltered(name)
@@ -34,12 +37,6 @@ function TodoFilters({ todosFiltered, filter, setFilter }) {
       </button>
     </div>
   )
-}
-
-TodoFilters.propTypes = {
-  todosFiltered: PropTypes.func.isRequired,
-  filter: PropTypes.string.isRequired,
-  setFilter: PropTypes.func.isRequired
 }
 
 export default TodoFilters

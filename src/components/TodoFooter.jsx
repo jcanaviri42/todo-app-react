@@ -1,20 +1,13 @@
-import PropTypes from 'prop-types'
+import { useToggle } from '../hooks/useToggle'
+
 
 import TodoClearComplete from './TodoClearComplete'
 import TodoCompleteAllTodos from './TodoCompleteAllTodos'
 import TodoFilters from './TodoFilters'
 import TodoItemsRemaining from './TodoItemsRemaining'
 
-import { useToggle } from '../hooks/useToggle'
+function TodoFooter() {
 
-function TodoFooter({
-  remaining,
-  completeAllTodos,
-  clearComplete,
-  todosFiltered,
-  filter,
-  setFilter,
-}) {
   const [isFeaturesOneVisible, setFeaturesOneVisible] = useToggle()
   const [isFeaturesTwoVisible, setFeaturesTwoVisible] = useToggle(false)
 
@@ -31,32 +24,19 @@ function TodoFooter({
 
       {isFeaturesOneVisible && (
         <div className="check-all-container">
-          <TodoCompleteAllTodos completeAllTodos={completeAllTodos} />
-          <TodoItemsRemaining remaining={remaining} />
+          <TodoCompleteAllTodos />
+          <TodoItemsRemaining />
         </div>
       )}
 
       {isFeaturesTwoVisible && (
         <div className="other-buttons-container">
-          <TodoFilters
-            todosFiltered={todosFiltered}
-            filter={filter}
-            setFilter={setFilter}
-          />
-          <TodoClearComplete clearComplete={clearComplete} />
+          <TodoFilters />
+          <TodoClearComplete />
         </div>
       )}
     </>
   )
-}
-
-TodoFooter.propTypes = {
-  remaining: PropTypes.number.isRequired,
-  completeAllTodos: PropTypes.func.isRequired,
-  clearComplete: PropTypes.func.isRequired,
-  todosFiltered: PropTypes.func.isRequired,
-  filter: PropTypes.string.isRequired,
-  setFilter: PropTypes.func.isRequired,
 }
 
 export default TodoFooter
