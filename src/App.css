@@ -219,6 +219,9 @@ input[type='checkbox']:focus {
 .toggles-container {
   margin: 20px 0;
 }
+.mr-1 {
+  margin-right: .5rem;
+}
 
 nav {
   background: white;

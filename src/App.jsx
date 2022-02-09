@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
+import { useLocalStorage } from './hooks/useLocalStorage'
 
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
@@ -6,28 +7,30 @@ import NoTodos from './components/NoTodos'
 import TodoFooter from './components/TodoFooter'
 
 export default function App() {
-  const [name, setName] = useState('')
+  // const [name, setName] = useState('')
+  const [name, setName] = useLocalStorage('name', '')
   const nameInputEl = useRef(null)
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      title: 'Finish React Series',
-      isComplete: false,
-      isEditing: false,
-    },
-    {
-      id: 2,
-      title: 'Go Grocery',
-      isComplete: true,
-      isEditing: false,
-    },
-    {
-      id: 3,
-      title: 'Take over world',
-      isComplete: false,
-      isEditing: false,
-    },
-  ])
+  const [todos, setTodos] = useLocalStorage('todos', [])
+  // const [todos, setTodos] = useState([
+  //   {
+  //     id: 1,
+  //     title: 'Finish React Series',
+  //     isComplete: false,
+  //     isEditing: false,
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'Go Grocery',
+  //     isComplete: true,
+  //     isEditing: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'Take over world',
+  //     isComplete: false,
+  //     isEditing: false,
+  //   },
+  // ])
   const [filter, setFilter] = useState('all')
 
   const addTodo = (todoText) => {
@@ -127,7 +130,7 @@ export default function App() {
 
         <div className="name-container">
           <h2>What is your name?</h2>
-          <form>
+          <form onSubmit={(e) => e.preventDefault()}>
             <input 
               type="text"
               ref={nameInputEl}
