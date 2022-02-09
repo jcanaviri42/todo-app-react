@@ -7,12 +7,16 @@ import NoTodos from './components/NoTodos'
 import TodoFooter from './components/TodoFooter'
 
 import { TodosContext } from './context/TodoContext'
+import { CSSTransition, SwitchTransition } from 'react-transition-group'
 
 export default function App() {
   const [name, setName] = useLocalStorage('name', '')
   const nameInputEl = useRef(null)
   const [todos, setTodos] = useLocalStorage('todos', [])
   const [filter, setFilter] = useState('all')
+
+  const nameNodeRef = useRef(null)
+  const todosNodeRef = useRef(null)
 
   const todosFiltered = (filter) => {
     if (filter === 'all') return todos
@@ -44,19 +48,41 @@ export default function App() {
                 onChange={(e) => setName(e.target.value)}
               />
             </form>
-            {name && <p className="name-label">Hello, {name}!</p>}
+            <CSSTransition
+              in={name.length > 0}
+              timeout={300}
+              classNames="slide-vertical"
+              nodeRef={nameNodeRef}
+              unmountOnExit
+            >
+              <p className="name-label" ref={nameNodeRef}>
+                Hello, {name}!
+              </p>
+            </CSSTransition>
           </div>
 
           <h2>Todo App</h2>
           <TodoForm />
-          {todos.length > 0 ? (
-            <div>
-              <TodoList />
-              <TodoFooter />
-            </div>
-          ) : (
-            <NoTodos />
-          )}
+
+          <SwitchTransition mode="out-in">
+            <CSSTransition
+              key={todos.length > 0}
+              timeout={300}
+              classNames="slide-vertical"
+              nodeRef={todosNodeRef}
+              unmountOnExit>
+              {todos.length > 0 ? (
+                <div ref={todosNodeRef}>
+                  <TodoList />
+                  <TodoFooter />
+                </div>
+              ) : (
+                <div ref={todosNodeRef}>
+                  <NoTodos />
+                </div>
+              )}
+            </CSSTransition>
+          </SwitchTransition>
         </div>
       </div>
     </TodosContext.Provider>
