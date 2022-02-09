@@ -34,56 +34,55 @@ export default function App() {
         setFilter,
       }}
     >
-      <div className="todo-app-container">
-        <div className="todo-app">
-          <div className="name-container">
-            <h2>What is your name?</h2>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="text"
-                ref={nameInputEl}
-                className="todo-input"
-                placeholder="What's your name?"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </form>
-            <CSSTransition
-              in={name.length > 0}
-              timeout={300}
-              classNames="slide-vertical"
-              nodeRef={nameNodeRef}
-              unmountOnExit
-            >
-              <p className="name-label" ref={nameNodeRef}>
-                Hello, {name}!
-              </p>
-            </CSSTransition>
-          </div>
-
-          <h2>Todo App</h2>
-          <TodoForm />
-
-          <SwitchTransition mode="out-in">
-            <CSSTransition
-              key={todos.length > 0}
-              timeout={300}
-              classNames="slide-vertical"
-              nodeRef={todosNodeRef}
-              unmountOnExit>
-              {todos.length > 0 ? (
-                <div ref={todosNodeRef}>
-                  <TodoList />
-                  <TodoFooter />
-                </div>
-              ) : (
-                <div ref={todosNodeRef}>
-                  <NoTodos />
-                </div>
-              )}
-            </CSSTransition>
-          </SwitchTransition>
+      <div className="todo-app">
+        <div className="name-container">
+          <h2>What is your name?</h2>
+          <form onSubmit={(e) => e.preventDefault()}>
+            <input
+              type="text"
+              ref={nameInputEl}
+              className="todo-input"
+              placeholder="What's your name?"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </form>
+          <CSSTransition
+            in={name.length > 0}
+            timeout={300}
+            classNames="slide-vertical"
+            nodeRef={nameNodeRef}
+            unmountOnExit
+          >
+            <p className="name-label" ref={nameNodeRef}>
+              Hello, {name}!
+            </p>
+          </CSSTransition>
         </div>
+
+        <h2>Todo App</h2>
+        <TodoForm />
+
+        <SwitchTransition mode="out-in">
+          <CSSTransition
+            key={todos.length > 0}
+            timeout={300}
+            classNames="slide-vertical"
+            nodeRef={todosNodeRef}
+            unmountOnExit
+          >
+            {todos.length > 0 ? (
+              <div ref={todosNodeRef}>
+                <TodoList />
+                <TodoFooter />
+              </div>
+            ) : (
+              <div ref={todosNodeRef}>
+                <NoTodos />
+              </div>
+            )}
+          </CSSTransition>
+        </SwitchTransition>
       </div>
     </TodosContext.Provider>
   )

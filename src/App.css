@@ -82,6 +82,35 @@ input[type='checkbox']:focus {
   max-width: 32rem;
   color: #374151;
 }
+
+.todo-app-container {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.container {
+  margin: auto;
+  padding-top: 24px;
+  max-width: 48rem;
+}
+
+nav {
+  background-color: #fff;
+  padding: 16px;
+}
+nav ul {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  list-style-type: none;
+}
+nav ul li:not(:first-child) {
+  margin-left: 16px;
+}
+.active {
+  font-weight: bold;
+}
+
 .todo-input {
   width: 100%;
   border: none;

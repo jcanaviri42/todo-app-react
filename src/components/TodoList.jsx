@@ -71,10 +71,9 @@ function TodoList() {
           <CSSTransition
             key={todo.id}
             timeout={300}
-            nodeRef={liNodeRef}
             classNames="slide-horizontal"
           >
-            <li className="todo-item-container" ref={liNodeRef}>
+            <li className="todo-item-container">
               <div className="todo-item">
                 <input
                   type="checkbox"
