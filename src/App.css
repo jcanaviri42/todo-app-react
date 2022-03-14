@@ -119,7 +119,7 @@ nav ul li:not(:first-child) {
 }
 .todo-list {
   margin-top: 16px;
-  max-height: 210px;
+  max-height: 160px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
