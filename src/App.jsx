@@ -11,7 +11,6 @@ import { CSSTransition, SwitchTransition } from 'react-transition-group'
 
 export default function App() {
   const [name, setName] = useLocalStorage('name', '')
-  const nameInputEl = useRef(null)
   const [todos, setTodos] = useLocalStorage('todos', [])
   const [filter, setFilter] = useState('all')
 
@@ -40,7 +39,6 @@ export default function App() {
           <form onSubmit={(e) => e.preventDefault()}>
             <input
               type="text"
-              ref={nameInputEl}
               className="todo-input"
               placeholder="What's your name?"
               value={name}

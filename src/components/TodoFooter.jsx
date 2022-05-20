@@ -1,13 +1,11 @@
 import { useToggle } from '../hooks/useToggle'
 
-
 import TodoClearComplete from './TodoClearComplete'
 import TodoCompleteAllTodos from './TodoCompleteAllTodos'
 import TodoFilters from './TodoFilters'
 import TodoItemsRemaining from './TodoItemsRemaining'
 
 function TodoFooter() {
-
   const [isFeaturesOneVisible, setFeaturesOneVisible] = useToggle()
   const [isFeaturesTwoVisible, setFeaturesTwoVisible] = useToggle(false)
 

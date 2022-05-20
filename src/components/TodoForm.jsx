@@ -1,5 +1,4 @@
-import { useContext } from 'react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { TodosContext } from '../context/TodoContext'
 
@@ -7,21 +6,17 @@ function TodoForm() {
   const { todos, setTodos } = useContext(TodosContext)
   const [todoInput, setTodoInput] = useState('')
 
-  const handleInput = (event) => {
-    setTodoInput(event.target.value)
-  }
-
-  const addTodo = (event) => {
-    event.preventDefault()
+  const addTodo = (e) => {
+    e.preventDefault()
 
     // If the input text is empty
     if (todoInput.trim().length === 0) return
-    let newId = todos.length ? todos[todos.length - 1].id + 1 : 1
 
-    setTodos([
-      ...todos,
-      { id: newId, title: todoInput, isComplete: false, isEditing: false },
-    ])
+    // Calculate the new id
+    let newId = todos.length ? todos[todos.length - 1].id + 1 : 1
+    const newTodo = { id: newId, title: todoInput, isComplete: false, isEditing: false }
+
+    setTodos([...todos, newTodo])
     setTodoInput('')
   }
 
@@ -32,7 +27,7 @@ function TodoForm() {
         className="todo-input"
         placeholder="What do you need to do?"
         value={todoInput}
-        onChange={handleInput}
+        onChange={(e) => setTodoInput(e.target.value)}
       />
     </form>
   )

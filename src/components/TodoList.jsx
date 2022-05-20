@@ -1,18 +1,14 @@
-import { useContext, useRef } from 'react'
+import { useContext } from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import { TodosContext } from '../context/TodoContext'
 
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-
 function TodoList() {
   const { todos, setTodos, todosFiltered, filter } = useContext(TodosContext)
-  const liNodeRef = useRef(null)
 
   const completeTodo = (todoId) => {
     const updatedtodos = todos.map((todo) => {
-      if (todo.id === todoId) {
-        todo.isComplete = !todo.isComplete
-      }
+      if (todo.id === todoId) todo.isComplete = !todo.isComplete
       return todo
     })
 
@@ -21,9 +17,7 @@ function TodoList() {
 
   const markAsEditing = (todoId) => {
     const updatedtodos = todos.map((todo) => {
-      if (todo.id === todoId) {
-        todo.isEditing = true
-      }
+      if (todo.id === todoId) todo.isEditing = true
       return todo
     })
 
@@ -71,7 +65,7 @@ function TodoList() {
           <CSSTransition
             key={todo.id}
             timeout={300}
-            classNames="slide-horizontal"
+            classNames="slide-vertical"
           >
             <li className="todo-item-container">
               <div className="todo-item">
