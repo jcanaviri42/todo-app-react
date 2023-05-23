@@ -1,6 +1,7 @@
 {
   "name": "lc-react",
   "version": "0.0.0",
+  "author": "Josue Canaviri",
   "private": true,
   "scripts": {
     "dev": "vite",
