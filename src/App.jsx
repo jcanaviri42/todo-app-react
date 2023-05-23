@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { useLocalStorage } from './hooks/useLocalStorage'
+import { CSSTransition, SwitchTransition } from 'react-transition-group'
 
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
@@ -7,7 +7,8 @@ import NoTodos from './components/NoTodos'
 import TodoFooter from './components/TodoFooter'
 
 import { TodosContext } from './context/TodoContext'
-import { CSSTransition, SwitchTransition } from 'react-transition-group'
+
+import { useLocalStorage } from './hooks/useLocalStorage'
 
 export default function App() {
   const [name, setName] = useLocalStorage('name', '')
